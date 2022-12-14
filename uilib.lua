@@ -1,13 +1,12 @@
--- This User Interface Library is brought to you by Solaris Software.
-local Solaris = Instance.new("ScreenGui")
-Solaris.Name = "dosage's solaris gui"
-Solaris.Parent = game.CoreGui
-Solaris.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+local Aerval = Instance.new("ScreenGui")
+Aerval.Name = "dosage's Aerval gui"
+Aerval.Parent = game.CoreGui
+Aerval.ZIndexBehavior = Enum.ZIndexBehavior.Aerval
 
 local NotificationHolder = Instance.new("ScreenGui")
 NotificationHolder.Name = "notiHolder"
 NotificationHolder.Parent = game.CoreGui
-NotificationHolder.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+NotificationHolder.ZIndexBehavior = Enum.ZIndexBehavior.Aerval
 
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
@@ -245,7 +244,7 @@ function Aerval:New(Config)
     local SectionPreset = game:GetObjects("rbxassetid://7121846230")[1]
     local ContainerPreset = game:GetObjects("rbxassetid://7121886326")[1]
     local MFrame = MainUI.MainFrame
-    MainUI.Parent = Solaris
+    MainUI.Parent = Aerval
     MFrame.TopBar.TopFrameTitle.Text = Config.Name
     MakeDraggable(MFrame.TopBar, MainUI) 
     local oldScript = script
@@ -270,7 +269,7 @@ function Aerval:New(Config)
         local playing = false
         local MarketplaceService = game:GetService("MarketplaceService")
         local MusicFrame, MusicPreset = game:GetObjects("rbxassetid://7296373622")[1], game:GetObjects("rbxassetid://7296615234")[1]
-        MusicFrame.Parent = Solaris
+        MusicFrame.Parent = Aerval
         MusicFrame.ZIndex = 5
         MusicFrame.Visible = Aerval.Settings.ShowMusicOnLaunch
         MusicFrame.Frame.Title.Text = "Not Playing"
