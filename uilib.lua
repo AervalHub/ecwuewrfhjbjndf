@@ -1,12 +1,13 @@
-local Aerval = Instance.new("ScreenGui")
-Aerval.Name = "dosage's Aerval gui"
-Aerval.Parent = game.CoreGui
-Aerval.ZIndexBehavior = Enum.ZIndexBehavior.Aerval
+-- This User Interface Library is brought to you by Solaris Software.
+local Solaris = Instance.new("ScreenGui")
+Solaris.Name = "dosage's solaris gui"
+Solaris.Parent = game.CoreGui
+Solaris.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 local NotificationHolder = Instance.new("ScreenGui")
 NotificationHolder.Name = "notiHolder"
 NotificationHolder.Parent = game.CoreGui
-NotificationHolder.ZIndexBehavior = Enum.ZIndexBehavior.Aerval
+NotificationHolder.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
@@ -35,7 +36,7 @@ script = NotificationFrame.NotifScript
 local Notify = loadstring(NotificationFrame.NotifScript.Source)()
 script = oldScript
 
-local Aerval = {
+local SolarisLib = {
     Themes = {
         Default = {
             MainFrame = Color3.fromRGB(25, 25, 25),
@@ -161,7 +162,7 @@ local Aerval = {
 
 
 local MainUI = game:GetObjects("rbxassetid://7835727566")[1]
-print("Aerval Loaded!")
+print("SolarisLib Loaded!")
 local function MakeDraggable(topbarobject, object) 
     pcall(function()
 		local dragging, dragInput, mousePos, framePos = false
@@ -213,11 +214,11 @@ function Ripple(Object)
 	end)
 end
 
-function Aerval:Notification(title, desc)
+function SolarisLib:Notification(title, desc)
     Notify:New(title,desc)
 end    
 
-function Aerval:New(Config)
+function SolarisLib:New(Config)
     if not isfolder(Config.FolderToSave) then 
         makefolder(Config.FolderToSave)
     end
@@ -228,12 +229,12 @@ function Aerval:New(Config)
     
     if not isfile(Config.FolderToSave .. "/settings.txt") then
         local content = {}
-        for i,v in pairs(Aerval.Settings) do
+        for i,v in pairs(SolarisLib.Settings) do
             content[i] = v
         end
         writefile(Config.FolderToSave .. "/settings.txt", tostring(http:JSONEncode(content)))
     end    
-    Aerval.Settings = http:JSONDecode(readfile(Config.FolderToSave .. "/settings.txt"))
+    SolarisLib.Settings = http:JSONDecode(readfile(Config.FolderToSave .. "/settings.txt"))
 
     local closebindbinding = false
     local fs = false
@@ -244,7 +245,7 @@ function Aerval:New(Config)
     local SectionPreset = game:GetObjects("rbxassetid://7121846230")[1]
     local ContainerPreset = game:GetObjects("rbxassetid://7121886326")[1]
     local MFrame = MainUI.MainFrame
-    MainUI.Parent = Aerval
+    MainUI.Parent = Solaris
     MFrame.TopBar.TopFrameTitle.Text = Config.Name
     MakeDraggable(MFrame.TopBar, MainUI) 
     local oldScript = script
@@ -269,9 +270,9 @@ function Aerval:New(Config)
         local playing = false
         local MarketplaceService = game:GetService("MarketplaceService")
         local MusicFrame, MusicPreset = game:GetObjects("rbxassetid://7296373622")[1], game:GetObjects("rbxassetid://7296615234")[1]
-        MusicFrame.Parent = Aerval
+        MusicFrame.Parent = Solaris
         MusicFrame.ZIndex = 5
-        MusicFrame.Visible = Aerval.Settings.ShowMusicOnLaunch
+        MusicFrame.Visible = SolarisLib.Settings.ShowMusicOnLaunch
         MusicFrame.Frame.Title.Text = "Not Playing"
         MusicFrame.Frame.Progress.ProgressFrame.Size = UDim2.new(0,0,1,0)
         MusicFrame.Frame.AddBtn.AutoButtonColor = false
@@ -388,14 +389,14 @@ function Aerval:New(Config)
         
         spawn(function()
             while wait() do
-                MusicFrame.Frame.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].MainFrame
-                MusicFrame.Frame.TopBar.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TopBar
-                MusicFrame.Frame.TopBar.CloseBtn.Ico.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-                MusicFrame.Frame.MusicList.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].TopBar
-                MusicFrame.Frame.AddBtn.BackgroundColor3 = abuttonhold and Aerval.Themes[Aerval.Settings.Theme].ButtonHold or Aerval.Themes[Aerval.Settings.Theme].Button
-                MusicFrame.Frame.Progress.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].Slider
-                MusicFrame.Frame.Progress.ProgressFrame.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].SliderInc
-                MusicFrame.Frame.AddSong.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].Textbox
+                MusicFrame.Frame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].MainFrame
+                MusicFrame.Frame.TopBar.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TopBar
+                MusicFrame.Frame.TopBar.CloseBtn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                MusicFrame.Frame.MusicList.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TopBar
+                MusicFrame.Frame.AddBtn.BackgroundColor3 = abuttonhold and SolarisLib.Themes[SolarisLib.Settings.Theme].ButtonHold or SolarisLib.Themes[SolarisLib.Settings.Theme].Button
+                MusicFrame.Frame.Progress.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Slider
+                MusicFrame.Frame.Progress.ProgressFrame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].SliderInc
+                MusicFrame.Frame.AddSong.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Textbox
             end
         end)
     end  
@@ -417,7 +418,7 @@ function Aerval:New(Config)
 
         function SaveSettings()
             local content = {}
-            for i,v in pairs(Aerval.Settings) do
+            for i,v in pairs(SolarisLib.Settings) do
                 content[i] = v
             end
             writefile(Config.FolderToSave .. "/settings.txt", tostring(http:JSONEncode(content)))
@@ -426,11 +427,11 @@ function Aerval:New(Config)
         
         spawn(function()
             while wait() do
-                SFrame.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].MainFrame
-                SFrame.TopBar.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TopBar
-                SFrame.TopBar.CloseBtn.Ico.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-                SFrame.TopBar.TopFrameTitle.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-                SFrame.TabHolder.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].TopBar
+                SFrame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].MainFrame
+                SFrame.TopBar.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TopBar
+                SFrame.TopBar.CloseBtn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                SFrame.TopBar.TopFrameTitle.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                SFrame.TabHolder.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TopBar
 
             end
         end)
@@ -466,7 +467,7 @@ function Aerval:New(Config)
             end)
             local TabHold = {}
             function TabHold:ToggleSetting(title, desc, def, path)
-                local value = Aerval.Settings[path] or def
+                local value = SolarisLib.Settings[path] or def
                 local Toggle = TogglePreset:Clone()
                 Toggle.Parent = Container
                 Toggle.Title.Text = title
@@ -479,7 +480,7 @@ function Aerval:New(Config)
 
                 local function SetValue(val)
                     Tween(val)
-                    Aerval.Settings[path] = val
+                    SolarisLib.Settings[path] = val
                     value = val
                     SaveSettings()
                 end    
@@ -492,14 +493,14 @@ function Aerval:New(Config)
 
                 spawn(function()
                     while wait() do
-                        Toggle.ToggleFrame.ToggleToggled.BackgroundColor3 = value and Aerval.Themes[Aerval.Settings.Theme].ToggleToggled or Aerval.Themes[Aerval.Settings.Theme].MainFrame
-                        Toggle.ToggleFrame.BackgroundColor3 = value and Aerval.Themes[Aerval.Settings.Theme].ToggleToggled or Aerval.Themes[Aerval.Settings.Theme].ToggleFrame
-                        Toggle.Title.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                        Toggle.ToggleFrame.ToggleToggled.BackgroundColor3 = value and SolarisLib.Themes[SolarisLib.Settings.Theme].ToggleToggled or SolarisLib.Themes[SolarisLib.Settings.Theme].MainFrame
+                        Toggle.ToggleFrame.BackgroundColor3 = value and SolarisLib.Themes[SolarisLib.Settings.Theme].ToggleToggled or SolarisLib.Themes[SolarisLib.Settings.Theme].ToggleFrame
+                        Toggle.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
             end
             function TabHold:BindSetting(title, desc, def, path)
-                local value = Aerval.Settings[path] or def
+                local value = SolarisLib.Settings[path] or def
                 local Bind = BindPreset:Clone()
                 Bind.Parent = Container
                 Bind.Title.Text = title
@@ -510,7 +511,7 @@ function Aerval:New(Config)
                     value = val or value
                     value = value.Name or value
                     Bind.BText.Text = value
-                    Aerval.Settings[path] = value
+                    SolarisLib.Settings[path] = value
                     SaveSettings()
                 end    
                 SetValue(value)
@@ -544,16 +545,16 @@ function Aerval:New(Config)
 
                 spawn(function()
                     while wait() do
-                        Bind.Desc.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-                        Bind.BText.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-                        Bind.Title.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                        Bind.Desc.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                        Bind.BText.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                        Bind.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
             
             end    
             function TabHold:Dropdown(title, desc, list, def, path)
                 local opened = false
-                local value = Aerval.Settings[path] or def
+                local value = SolarisLib.Settings[path] or def
                 local Dropdown = DropdownPreset:Clone()
                 Dropdown.Parent = Container
                 Dropdown.Title.Text = title
@@ -588,14 +589,14 @@ function Aerval:New(Config)
 
                         Option.MouseButton1Click:Connect(function()
                             value = option
-                            Aerval.Settings[path] = value
+                            SolarisLib.Settings[path] = value
                             Dropdown.Main.Current.Text = value
                             SaveSettings()
                         end)
 
                         spawn(function()
                             while wait() do
-                               Option.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor       
+                               Option.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor       
                             end
                         end)
                     end   
@@ -603,8 +604,8 @@ function Aerval:New(Config)
 
                 spawn(function()
                     while wait() do
-                        Dropdown.Main.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TopBar
-                        Dropdown.Main.Holder.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TopBar
+                        Dropdown.Main.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TopBar
+                        Dropdown.Main.Holder.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TopBar
                     end
                 end)
                 AddOptions(list)
@@ -613,7 +614,7 @@ function Aerval:New(Config)
         end   
         
         local general = Settings:Tab("General")
-        general:ToggleSetting("Show Music On Launch", "Shows the music menu when you load Aerval", true, "ShowMusicOnLaunch")
+        general:ToggleSetting("Show Music On Launch", "Shows the music menu when you load Snow Hub", true, "ShowMusicOnLaunch")
         general:BindSetting("Close Bind", "Hides/Shows the main window when pressed.", Enum.KeyCode.RightControl, "CloseBind")
         general:Dropdown("Theme", "The look of the user interface", {"Default", "Discord", "Red", "Green", "Blue"}, "Default", "Theme")
 
@@ -661,7 +662,7 @@ function Aerval:New(Config)
     function SearchConstructor()
         function StitchElements()
             local elms = {}
-            for i,v in next, Aerval.CurrentTab:GetDescendants() do
+            for i,v in next, SolarisLib.CurrentTab:GetDescendants() do
                 if string.find(v.Name, "element") then
                     table.insert(elms, v)        
                 end
@@ -688,7 +689,7 @@ function Aerval:New(Config)
     
 
 	UserInputService.InputBegan:Connect(function(Input)
-		if (Input.KeyCode.Name == Aerval.Settings.CloseBind or Input.UserInputType.Name == Aerval.Settings.CloseBind) and not closebindbinding then
+		if (Input.KeyCode.Name == SolarisLib.Settings.CloseBind or Input.UserInputType.Name == SolarisLib.Settings.CloseBind) and not closebindbinding then
             uitoggled = not uitoggled
             MainUI.Visible = uitoggled
 		end
@@ -696,36 +697,36 @@ function Aerval:New(Config)
 
     spawn(function()
         while wait() do
-            MFrame.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].MainFrame
-            MFrame.TopBar.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TopBar
-            MFrame.TopBar.ButtonHolder.CloseBtn.Ico.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-            MFrame.TopBar.ButtonHolder.MenuBtn.Ico.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-            MFrame.TopBar.ButtonHolder.SearchBtn.Ico.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-            MFrame.TopBar.TabListBtn.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-            MFrame.TopBar.TopFrameTitle.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-            MFrame.TabMenu.Menu.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].Menu
-            MFrame.TabMenu.Menu.Top.MenuCloseBtn.ImageLabel.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-            MFrame.TopBar.ButtonHolder.SearchBtn.TextBox.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].MainFrame
-            MFrame.TopBar.ButtonHolder.SearchBtn.TextBox.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-            MFrame.TopBar.ButtonHolder.SearchBtn.TextBox.PlaceholderColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-            MFrame.TopBar.ButtonHolder.MenuBtn.MenuFrame.Frame.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].TopBar
+            MFrame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].MainFrame
+            MFrame.TopBar.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TopBar
+            MFrame.TopBar.ButtonHolder.CloseBtn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+            MFrame.TopBar.ButtonHolder.MenuBtn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+            MFrame.TopBar.ButtonHolder.SearchBtn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+            MFrame.TopBar.TabListBtn.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+            MFrame.TopBar.TopFrameTitle.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+            MFrame.TabMenu.Menu.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Menu
+            MFrame.TabMenu.Menu.Top.MenuCloseBtn.ImageLabel.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+            MFrame.TopBar.ButtonHolder.SearchBtn.TextBox.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].MainFrame
+            MFrame.TopBar.ButtonHolder.SearchBtn.TextBox.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+            MFrame.TopBar.ButtonHolder.SearchBtn.TextBox.PlaceholderColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+            MFrame.TopBar.ButtonHolder.MenuBtn.MenuFrame.Frame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TopBar
         end
     end)
 
-    function Aerval:LoadCfg(cfg)
+    function SolarisLib:LoadCfg(cfg)
         local content = http:JSONDecode(cfg)
         table.foreach(content, function(a,b)
-            if Aerval.Flags[a] then
-                spawn(function() Aerval.Flags[a]:Set(b) end)
+            if SolarisLib.Flags[a] then
+                spawn(function() SolarisLib.Flags[a]:Set(b) end)
             else
                 warn("cfg loader - could not find", a ,b )
             end
         end)
     end
     
-    function Aerval:SaveCfg(name)
+    function SolarisLib:SaveCfg(name)
         local content = {}
-        for i,v in pairs(Aerval.Flags) do
+        for i,v in pairs(SolarisLib.Flags) do
             content[i] = v.Value
         end
         writefile(Config.FolderToSave .. "/configs/" .. name .. ".txt", tostring(http:JSONEncode(content)))
@@ -751,13 +752,13 @@ function Aerval:New(Config)
             Tab.UIPadding.PaddingLeft = UDim.new(0,10)
             Tab.TextTransparency = 0
             Tab.BackgroundTransparency = 0  
-            Aerval.CurrentTab = Container  
+            SolarisLib.CurrentTab = Container  
         end    
 
         spawn(function()
             while wait() do
-                Tab.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-                Tab.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].TabToggled
+                Tab.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                Tab.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TabToggled
                 Container.CanvasSize = UDim2.new(0,0,0,Container.UIListLayout.AbsoluteContentSize.Y + 26)
             end
         end)
@@ -794,7 +795,7 @@ function Aerval:New(Config)
 
             spawn(function()
                 while wait() do
-                    Section.SectionTitle.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                    Section.SectionTitle.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     Section.Size = UDim2.new(0.9,0,0,Section.UIListLayout.AbsoluteContentSize.Y)
                 end
             end)
@@ -820,8 +821,8 @@ function Aerval:New(Config)
 
                 spawn(function()
                     while wait() do
-                       Button.BackgroundColor3 = Holding and Aerval.Themes[Aerval.Settings.Theme].ButtonHold or Aerval.Themes[Aerval.Settings.Theme].Button
-                       Button.ButtonText.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                       Button.BackgroundColor3 = Holding and SolarisLib.Themes[SolarisLib.Settings.Theme].ButtonHold or SolarisLib.Themes[SolarisLib.Settings.Theme].Button
+                       Button.ButtonText.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
 
@@ -846,15 +847,15 @@ function Aerval:New(Config)
 
                 spawn(function()
                     while wait() do
-                        ToggleMain.ToggleFrame.ToggleToggled.BackgroundColor3 = Toggle.Value and Aerval.Themes[Aerval.Settings.Theme].ToggleToggled or Aerval.Themes[Aerval.Settings.Theme].Toggle
-                        ToggleMain.ToggleFrame.BackgroundColor3 = Toggle.Value and Aerval.Themes[Aerval.Settings.Theme].ToggleToggled or Aerval.Themes[Aerval.Settings.Theme].ToggleFrame
-                        ToggleMain.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].Toggle
-                        ToggleMain.ToggleText.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                        ToggleMain.ToggleFrame.ToggleToggled.BackgroundColor3 = Toggle.Value and SolarisLib.Themes[SolarisLib.Settings.Theme].ToggleToggled or SolarisLib.Themes[SolarisLib.Settings.Theme].Toggle
+                        ToggleMain.ToggleFrame.BackgroundColor3 = Toggle.Value and SolarisLib.Themes[SolarisLib.Settings.Theme].ToggleToggled or SolarisLib.Themes[SolarisLib.Settings.Theme].ToggleFrame
+                        ToggleMain.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Toggle
+                        ToggleMain.ToggleText.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
 
 				Toggle:Set(def)
-                Aerval.Flags[flag] = Toggle
+                SolarisLib.Flags[flag] = Toggle
                 return Toggle
             end    
             function ItemHold:Slider(text,min,max,start,inc,flag,callback)
@@ -888,17 +889,17 @@ function Aerval:New(Config)
 
                 spawn(function()
                     while wait() do
-                       SliderMain.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].Slider
-                       SliderMain.SliderFrame.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].SliderBar
-                       SliderMain.SliderFrame.SliderCurrentFrame.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].SliderInc
-                       SliderMain.SliderText.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-                       SliderMain.SliderVal.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                       SliderMain.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Slider
+                       SliderMain.SliderFrame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].SliderBar
+                       SliderMain.SliderFrame.SliderCurrentFrame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].SliderInc
+                       SliderMain.SliderText.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                       SliderMain.SliderVal.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
 
 
                 Slider:Set(start)
-                Aerval.Flags[flag] = Slider
+                SolarisLib.Flags[flag] = Slider
                 return Slider
             end    
             function ItemHold:Dropdown(text,list,def,flag,callback)
@@ -932,8 +933,8 @@ function Aerval:New(Config)
 
                         spawn(function()
                             while wait() do
-                               Option.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].DropdownItem
-                               DropMain.Btn.Title.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                               Option.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].DropdownItem
+                               DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                             end
                         end)
                     end   
@@ -965,15 +966,15 @@ function Aerval:New(Config)
 
                 spawn(function()
                     while wait() do
-                       DropMain.Btn.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].Dropdown
-                       DropMain.Btn.Title.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-                       DropMain.Btn.Ico.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                       DropMain.Btn.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Dropdown
+                       DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                       DropMain.Btn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
 
                 Dropdown:Refresh(list,false)
                 Dropdown:Set(def)
-                Aerval.Flags[flag] = Dropdown
+                SolarisLib.Flags[flag] = Dropdown
                 return Dropdown
             end   
             function ItemHold:MultiDropdown(text,list,def,flag,callback)
@@ -1013,8 +1014,8 @@ function Aerval:New(Config)
 
                         spawn(function()
                             while wait() do
-                               Option.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].DropdownItem
-                               DropMain.Btn.Title.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                               Option.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].DropdownItem
+                               DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                             end
                         end)
                     end   
@@ -1046,15 +1047,15 @@ function Aerval:New(Config)
 
                 spawn(function()
                     while wait() do
-                       DropMain.Btn.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].Dropdown
-                       DropMain.Btn.Title.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-                       DropMain.Btn.Ico.ImageColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                       DropMain.Btn.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Dropdown
+                       DropMain.Btn.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                       DropMain.Btn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
 
                 Dropdown:Refresh(list,false)
                 Dropdown:Set(def)
-                Aerval.Flags[flag] = Dropdown
+                SolarisLib.Flags[flag] = Dropdown
                 return Dropdown
             end    
             function ItemHold:Colorpicker(text,preset,flag,callback)
@@ -1142,8 +1143,8 @@ function Aerval:New(Config)
 
                 spawn(function()
                     while wait() do
-                       ColorPreset.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].Colorpicker
-                       ColorPreset.Btn.Colorpicker.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                       ColorPreset.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Colorpicker
+                       ColorPreset.Btn.Colorpicker.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
 
@@ -1163,8 +1164,8 @@ function Aerval:New(Config)
                 
                 spawn(function()
                     while wait() do
-                       LabelFrame.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].Label
-                       LabelFrame.Title.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                       LabelFrame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Label
+                       LabelFrame.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
 
@@ -1204,10 +1205,10 @@ function Aerval:New(Config)
                 
                 spawn(function()
                     while wait() do
-                       TextboxFrame.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].Textbox
-                       TextboxFrame.Title.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-                       TextboxFrame.Box.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].TextboxFrame
-                       TextboxFrame.Box.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                       TextboxFrame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Textbox
+                       TextboxFrame.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                       TextboxFrame.Box.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextboxFrame
+                       TextboxFrame.Box.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
                 return Textbox
@@ -1272,14 +1273,14 @@ function Aerval:New(Config)
 
                 spawn(function()
                     while wait() do
-                       BindFrame.BackgroundColor3 = Aerval.Themes[Aerval.Settings.Theme].Bind
-                       BindFrame.Title.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
-                       BindFrame.BText.TextColor3 = Aerval.Themes[Aerval.Settings.Theme].TextColor
+                       BindFrame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].Bind
+                       BindFrame.Title.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
+                       BindFrame.BText.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
 
 				Bind:Set(preset)
-                Aerval.Flags[flag] = Bind
+                SolarisLib.Flags[flag] = Bind
                 return Bind
             end    
             return ItemHold
@@ -1288,4 +1289,4 @@ function Aerval:New(Config)
     end 
     return TabHolder
 end    
-return Aerval
+return SolarisLib
